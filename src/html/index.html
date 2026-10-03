@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Web</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h2>Calculadora Web</h2>
+        <form action="calculadora.php" method="POST">
+            <div class="input-group">
+                <label for="num1">Número 1:</label>
+                <input type="number" step="any" id="num1" name="num1" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="num2">Número 2:</label>
+                <input type="number" step="any" id="num2" name="num2" required>
+            </div>
+
+            <div class="buttons-group">
+                <button type="submit" name="operacion" value="suma">Sumar (+)</button>
+                <button type="submit" name="operacion" value="resta">Restar (-)</button>
+                <button type="submit" name="operacion" value="multiplicacion">Multiplicar (×)</button>
+                <button type="submit" name="operacion" value="division">Dividir (÷)</button>
+            </div>
+        </form>
+
+        <!-- El resultado se mostrará aquí cuando PHP procese el formulario -->
+        <div class="resultado">
+            <!-- <?php if (isset($resultado)) echo "<h3>Resultado: $resultado</h3>"; ?> -->
+        </div>
+    </div>
+</body>
+</html>
