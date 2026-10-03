@@ -1,6 +1,6 @@
 <?php
 
-// Funcionalidades de suma y resta
+// 1. Funciones para cada operación
 function sumar(float $a, float $b): float {
     return $a + $b;
 }
@@ -9,32 +9,54 @@ function restar(float $a, float $b): float {
     return $a - $b;
 }
 
-// Manejo de las solicitudes del formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['num1'], $_POST['num2'], $_POST['operacion'])) {
-        $num1 = (float)$_POST['num1'];
-        $num2 = (float)$_POST['num2'];
-        $operacion = $_POST['operacion'];
-        $resultado = null;
+function multiplicar(float $a, float $b): float {
+    return $a * $b;
+}
 
-        switch ($operacion) {
-            case 'suma':
-                $resultado = sumar($num1, $num2);
-                echo "<h3>Resultado: $num1 + $num2 = $resultado</h3>";
-                break;
+function dividir(float $a, float $b) {
+    if ($b == 0) {
+        return "Error: División por cero no permitida.";
+    }
+    return $a / $b;
+}
 
-            case 'resta':
-                $resultado = restar($num1, $num2);
-                echo "<h3>Resultado: $num1 - $num2 = $resultado</h3>";
-                break;
+// 2. Manejo de las solicitudes del formulario
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $num1 = isset($_POST['num1']) ? (float)$_POST['num1'] : 0;
+    $num2 = isset($_POST['num2']) ? (float)$_POST['num2'] : 0;
+    $operacion = isset($_POST['operacion']) ? $_POST['operacion'] : '';
+    $resultado = null;
 
-            default:
-                // Ignorar o notificar operaciones aún no implementadas en esta rama
-                echo "<h3>Operación no disponible en esta versión.</h3>";
-                break;
-        }
+    switch ($operacion) {
+        case 'suma':
+            $resultado = sumar($num1, $num2);
+            break;
+
+        case 'resta':
+            $resultado = restar($num1, $num2);
+            break;
+
+        case 'multiplicacion':
+            $resultado = multiplicar($num1, $num2);
+            break;
+
+        case 'division':
+            $resultado = dividir($num1, $num2);
+            break;
+
+        default:
+            $resultado = "Operación no válida.";
+            break;
+    }
+
+    // Incluir la vista de la calculadora
+    include 'index.htm';
+
+    // Mostrar el resultado devuelto
+    if ($resultado !== null) {
+        echo "<div style='text-align:center; margin-top: 15px;'>";
+        echo "<h3>Resultado: " . htmlspecialchars((string)$resultado) . "</h3>";
+        echo "</div>";
     }
 }
 ?>
-
-
